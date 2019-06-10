@@ -8,13 +8,9 @@ else
 fi
 
 source "${__DIR__}/.bash/functions.lib.sh"
+source "${__DIR__}/.bash/name.lib.sh"
 
 set -E
 trap 'throw_exception' ERR
-
-if [[ -z "${REPO_NAME}" ]]; then
-  consolelog "REPO_NAME not set" "error"
-  exit 1
-fi
 
 docker run -t --rm --entrypoint sh "${REPO_NAME}" -c "python --version"

@@ -8,14 +8,10 @@ else
 fi
 
 source "${__DIR__}/.bash/functions.lib.sh"
+source "${__DIR__}/.bash/name.lib.sh"
 
 set -E
 trap 'throw_exception' ERR
-
-if [[ -z "${REPO_NAME}" ]]; then
-  consolelog "REPO_NAME not set" "error"
-  exit 1
-fi
 
 if [[ "${GIT_BRANCH}" == "master" ]]; then
   tag="latest"
@@ -25,10 +21,10 @@ else
   tag="dev"
 fi
 
-docker tag "${REPO_NAME}" "348539006591.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}:${tag}"
-docker push "348539006591.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}:${tag}"
+docker tag "${REPO_NAME}" "135132174985.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}:${tag}"
+docker push "135132174985.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}:${tag}"
 
 if [[ ! -z "${GIT_COMMIT}" ]]; then
-  docker tag "${REPO_NAME}" "348539006591.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}:${GIT_COMMIT}"
-  docker push "348539006591.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}:${GIT_COMMIT}"
+  docker tag "${REPO_NAME}" "135132174985.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}:${GIT_COMMIT}"
+  docker push "135132174985.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}:${GIT_COMMIT}"
 fi

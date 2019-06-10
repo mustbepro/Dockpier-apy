@@ -8,16 +8,17 @@ else
 fi
 
 source "${__DIR__}/.bash/functions.lib.sh"
+source "${__DIR__}/.bash/name.lib.sh"
 
 set -E
 trap 'throw_exception' ERR
 
-if [[ -z "${REPO_NAME}" ]]; then
-  consolelog "REPO_NAME not set" "error"
-  exit 1
-fi
-
 extra_args=()
+
+if docker pull "135132174985.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}:latest"; then
+  extra_args+=( "--cache-from" )
+  extra_args+=( "135132174985.dkr.ecr.eu-west-1.amazonaws.com/${REPO_NAME}:latest" )
+fi
 
 docker build \
   -t "${REPO_NAME}" \
